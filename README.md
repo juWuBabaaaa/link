@@ -112,6 +112,7 @@ class Link
 		return this.root.getNode(index) ;
 	}
 }
+
 public class TestLinkDemo
 {
 	public static void main(String args[]) throws Exception {
