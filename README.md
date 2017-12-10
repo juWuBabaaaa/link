@@ -1,135 +1,90 @@
-# link
-//java单链表 用到了内部类  包括向链表中加入和转为对象数组两个操作
+create database ;
+show databases ;
+drop dataebase ;
+
+create table table_name (
+	colum_name data_type,
+	colum_name data_type,
+	.
+	.
+	.
+	clolum_name data_type
+) ;
+
+eg:
+
+create table account (
+	id bigint(20),        
+	createTime datetime,	
+	ip varchar(255),	
+	mobile varchar(255),	
+	nickname varchar(255),
+	passwd varchar(255),
+	username varchar(255),
+	avatar varchar(255),	
+	brief text,		
+	job varchar(255),	
+	location varchar(255),
+	qq varchar(255),
+	gender int(11), 	
+	city varchar(255),	
+	province varchar(255)	
+) ;
+
+用户登录时的ip（varchar数据类型的优势：实际多少位就给多少位不一定255）
+
+删除数据表
+
+命令代码：
+drop table table_name ;
+
+use gc  使用gc这个数据库
+
+show tables ;
+
+drop table table_name ;
+
+describe table_name ;
+
+增加列
+alter table 【table_name】 add 【column_name】 【data_type】[not null] [default]
+eg:
+alter table account add c1 int(11) not null default 1 ;(该列不为null，默认值为1)
+
+还有一些别的尾项。
+删除列：
+
+alter table 【table_name】 drop 【column_name】
+eg:
+alter table account drop c1 ;
+
+修改列：
+alter table 【table_name】 change 【old_column_name】 【new_column_name】 【data_type】
+
+修改表名：
+alter table 【table_name】 rename 【new_table_name】
 
 
-class Link 
-{
-	private class Node
-	{
-		private Object data ;
-		private Node next ;
-		public Node(Object data) {
-			this.data = data ;
-		}
+查看表的数据：
+select * from table_name ;
 
-		public Object getData() {
-			return this.data ;
-		}
-		public Node getNext() {
-			return this.next ;
-		}
-		public void addNode(Node newNode) {
-			if (this.next == null)
-			{
-				this.next =newNode ;
-			} else {
-				this.next.addNode(newNode) ;
-			}
-		}
-		public void toArrayNode() {
-			Link.this.retData[Link.this.foot ++] = this.data ;
-			if (this.next != null)
-			{
-				this.next.toArrayNode() ;
-			}
-		}
-		public boolean containsNode(Object search) {
-			if (search .equals(this.data))
-			{
-				return true ;
-			} else {
-				if (this.next != null)
-				{
-					return this.next.containsNode(search) ;
-				} else {
-					return false ;
-				}
-			}
-		}
-		public Object getNode(int index) {
-			if (Link.this.foot ++ == index)
-			{
-				return this.data ;
-			} else {
-				this.next.getNode(index) ;
-			}
-			return null ;
-		}
-	}
-	// ---------------------- 以下为Link类定义 ----------------------//
-	private Object [] retData ;
-	private int foot = 0 ;
-	private Node root ;
-	private int count = 0 ;
-	public Node getNode() {
-		return this.root ;
-	}
-	public void add(Object data) {
-		if (data == null)
-		{
-			return ;
-		}
-		Node newNode = new Node(data) ;   //封装
-		if (this.root == null) 
-		{
-			this.root = newNode ;
-		} else {
-			this.root.addNode(newNode) ;
-		}
-		this.count ++ ;
-	}
-	public int size() {
-		return this.count ;
-	}
-	public boolean isEmpty() {
-		return this.root == null && this.count == 0 ;
-	}
-	public Object [] toArray() {
-		if (this.count == 0)
-		{
-			return null ;
-		}
-		// 开辟指定长度的数组
-		// 该数组一定要交给Node类进行处理
-		this.retData = new Object[this.count] ;
-		this.foot = 0 ;
-		this.root.toArrayNode() ;
-		return this.retData ;
-	}
-	public boolean contains(Object search) {
-		if (search == null || this.root == null)
-		{
-			return false ;
-		}
-		return this.root.containsNode(search) ;
-	}
-	public Object get(int index) {
-		if (index >= this.count)
-		{
-			return null ;
-		}
-		this.foot = 0 ;
-		return this.root.getNode(index) ;
-	}
-}
+select col_name1,col_name2,... from table_name ;
 
-public class TestLinkDemo
-{
-	public static void main(String args[]) throws Exception {
-		Link link = new Link() ;
-		link.add("hello") ;
-		link.add(34) ;
-		link.add(true) ;
-		System.out.println(link.size()) ;
+插入数据：
 
-		Object result [] = link.toArray() ;
-		for (int x = 0; x < result.length ; x ++ )
-		{
-			System.out.println(result[x]) ;
-		}
-		System.out.println("================") ;
-		System.out.println(link.get(0)) ;
-		System.out.println(link.get(1)) ;
+insert into 【table_name】 values(值1,值2，...)
 
-	}
-}
+insert into 【table_name】 (列1，列2...) values (值1，值2，...)
+
+eg:
+insert into book(title) values('title1') ;
+
+where 语法:
+select * from table_name where col_name 运算符值
+eg: select * from book where title = 't';
+
+运算符除常见的还有：between \like (按某个模式查找)
+等于  是 “=”
+
+条件组合 and  or  
+
